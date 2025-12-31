@@ -1,0 +1,169 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+
+:root {
+  --bg: #0f2027;
+  --bg-gradient: linear-gradient(135deg, #0f2027, #203a43);
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --accent: #ff7a59;
+  --text: #ffffff;
+  --subtext: #dfe7ff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  font-family: "Inter", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-gradient);
+  color: var(--text);
+}
+
+#drum-machine {
+  width: 920px;
+  max-width: 95%;
+  background: var(--card-bg);
+  border-radius: 20px;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pads {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.drum-pad {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 100px;
+  transition: all 0.2s ease-in-out;
+  backdrop-filter: blur(4px);
+}
+
+.drum-pad:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(255, 122, 89, 0.5);
+  border-color: var(--accent);
+}
+
+.drum-pad.playing {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 10px 30px var(--accent);
+  border-color: var(--accent);
+}
+
+.pad-key {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 1px;
+}
+
+.pad-name {
+  font-size: 0.9rem;
+  color: var(--subtext);
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+#display {
+  background: var(--card-bg);
+  padding: 20px;
+  border-radius: 12px;
+  min-height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 1.05rem;
+  backdrop-filter: blur(4px);
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.control-group label {
+  font-size: 0.85rem;
+  color: var(--subtext);
+  opacity: 0.9;
+}
+
+input[type="range"] {
+  --webkit-appearance: none;
+  height: 8px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.2);
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.footer {
+  margin-top: auto;
+  font-size: 0.85rem;
+  color: var(--subtext);
+  opacity: 0.8;
+  text-align: center;
+}
+
+@media (max-width: 950px) {
+  #drum-machine {
+    grid-template-columns: 1fr;
+  }
+  .side {
+    order: 2;
+  }
+}
