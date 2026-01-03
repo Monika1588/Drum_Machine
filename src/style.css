@@ -159,11 +159,40 @@ input[type="range"]::-moz-range-thumb {
   text-align: center;
 }
 
-@media (max-width: 950px) {
-  #drum-machine {
-    grid-template-columns: 1fr;
+@media (max-width: 600px) {
+  body {
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 12px;
+    height: auto;
+    overflow-x: hidden;
   }
+
+  #drum-machine {
+    width: 100%;
+    max-width: 100%;
+    grid-template-columns: 1fr;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .pads {
+    width: 100%;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+
   .side {
-    order: 2;
+    width: 100%;
+  }
+
+  #display {
+    width: 100%;
+    min-height: 80px;
+  }
+
+  .drum-pad:hover,
+  .drum-pad.playing {
+    transform: none;
   }
 }
