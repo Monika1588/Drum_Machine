@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./style.css";
+import { FaDrum } from "react-icons/fa";
+import { FaVolumeUp, FaHeadphones, FaMusic } from "react-icons/fa";
+import { GiSoundWaves } from "react-icons/gi";
 
 const BANK = [
   { key: "Q", name: "Heater 1", url: "/sounds/Heater-1.mp3" },
@@ -13,7 +16,7 @@ const BANK = [
   { key: "C", name: "Closed HH", url: "/sounds/Cev_H2.mp3" }
 ];
 
-function DrumPad({ keyTrigger, clipName, clipUrl, playClip, volume, active }) {
+function DrumPad({ keyTrigger, clipName, clipUrl, playClip, active }) {
   const padRef = useRef(null);
 
   useEffect(() => {
@@ -33,7 +36,6 @@ function DrumPad({ keyTrigger, clipName, clipUrl, playClip, volume, active }) {
     >
       <div className="pad-key">{keyTrigger}</div>
       <div className="pad-name">{clipName}</div>
-
       <audio className="clip" id={keyTrigger} src={clipUrl}></audio>
     </div>
   );
@@ -61,58 +63,77 @@ function App() {
     const handleKey = (e) => {
       const key = e.key.toUpperCase();
       const bankItem = BANK.find((b) => b.key === key);
-
-      if (bankItem) {
-        playClip(bankItem.key, bankItem.name);
-      }
+      if (bankItem) playClip(bankItem.key, bankItem.name);
     };
-
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [volume]);
 
   return (
-    <div id="drum-machine">
-      <div className="pads">
-        {BANK.map((b) => (
-          <DrumPad
-            key={b.key}
-            keyTrigger={b.key}
-            clipName={b.name}
-            clipUrl={b.url}
-            playClip={playClip}
-            volume={volume}
-            active={activeKey === b.key}
-          />
-        ))}
-      </div>
+    <>
+<div className="decor-icons">
+  <FaDrum className="decor-icon d1" />
+  <GiSoundWaves className="decor-icon d2" />
+  <GiSoundWaves className="decor-icon d3" />
+  <FaDrum className="decor-icon d4" />
+  <FaDrum className="decor-icon d5" />
+</div>
 
-      <div className="side">
-        <div id="display">{display}</div>
-
-        <div className="controls">
-          <div className="control-group">
-            <label htmlFor="volume">Volume</label>
-            <input
-              id="volume"
-              type="range"
-              min="0"
-              max="1"
-              step="0.01"
-              value={volume}
-              onChange={(e) => setVolume(Number(e.target.value))}
+      <div id="drum-machine">
+        <div className="pads">
+          {BANK.map((b) => (
+            <DrumPad
+              key={b.key}
+              keyTrigger={b.key}
+              clipName={b.name}
+              clipUrl={b.url}
+              playClip={playClip}
+              active={activeKey === b.key}
             />
-          </div>
-
-          <div className="control-group">
-            <label>How to Play</label>
-            <p style={{ fontSize: 13 }}>Press keys Q W E A S D Z X C</p>
-          </div>
+          ))}
         </div>
 
-        <div className="footer">Drum Machine</div>
+        <div className="side">
+          <div id="display">{display}</div>
+
+          <div className="controls">
+            <div className="control-group">
+              <label htmlFor="volume" className="volume-label">
+                <FaVolumeUp className="volume-icon" />
+                <span className="volume-value">
+                  {Math.round(volume * 100)}%
+                </span>
+              </label>
+
+              <input
+                id="volume"
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value={volume}
+                onChange={(e) => setVolume(Number(e.target.value))}
+              />
+            </div>
+
+            <div className="control-group">
+              <label>How to Play</label>
+              <p style={{ fontSize: 13 }}>
+                Press keys Q W E A S D Z X C
+              </p>
+            </div>
+          </div>
+          <div className="footer">
+  <div className="audio-wave">
+    <span></span><span></span><span></span><span></span><span></span>
+    <FaDrum className="footer-icon" />
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+</div>
+
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
